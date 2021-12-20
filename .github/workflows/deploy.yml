@@ -25,10 +25,10 @@ jobs:
         run: |
           docker build -f Docker/dockerfile/app.Dockerfile -t app .
           docker build -f Docker/dockerfile/web_server.Dockerfile -t web_server .
-          docker tag app ${{ secrets.DOCKERHUB_USERNAME}}/Sistem_Informasi_Inventory_Sekolah
-          docker tag web_server ${{ secrets.DOCKERHUB_USERNAME}}/Sistem_Informasi_Inventory_Sekolah-web_server
-          docker push ${{ secrets.DOCKERHUB_USERNAME}}/Sistem_Informasi_Inventory_Sekolah
-          docker push ${{ secrets.DOCKERHUB_USERNAME}}/Sistem_Informasi_Inventory_Sekolah-web_server
+          docker tag app ${{ secrets.DOCKERHUB_USERNAME}}/sistem_informasi_inventory_sekolah
+          docker tag web_server ${{ secrets.DOCKERHUB_USERNAME}}/sistem_informasi_inventory_sekolah-web_server
+          docker push ${{ secrets.DOCKERHUB_USERNAME}}/sistem_informasi_inventory_sekolah
+          docker push ${{ secrets.DOCKERHUB_USERNAME}}/sistem_informasi_inventory_sekolah-web_server
       - name: "Write config"
         run: |
           mkdir ~/.oci
@@ -92,8 +92,8 @@ jobs:
           username: ubuntu
           key: ${{secrets.OCI_INSTANCE_KEY}}
           script: |
-            sudo docker pull tita26/Sistem_Informasi_Inventory_Sekolah
-            sudo docker pull tita26/Sistem_Informasi_Inventory_Sekolah-web_server
+            sudo docker pull tita26/sistem_informasi_inventory_sekolah
+            sudo docker pull tita26/sistem_informasi_inventory_sekolah-web_server
             sudo docker-compose up -d
             sudo docker exec app /bin/bash -c "php artisan key:generate"
             sudo docker exec app /bin/bash -c "echo 'DB_CONNECTION=${{ secrets.DB_CONNECTION }}' >> .env"
