@@ -1,0 +1,36 @@
+version: '3'
+services:
+  app:
+    image: budasuyasa/laravel-prod-demo-app:prod
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    env_file: .env
+    depends_on:
+      - cache
+    networks:
+      - laravel-prod
+
+  web_server:
+    image: budasuyasa/laravel-prod-demo-web_server:prod
+    container_name: web_server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8002:80"
+    depends_on:
+      - app
+    networks:
+      - laravel-prod
+
+  cache:
+    image: redis:alpine
+    container_name: cache
+    restart: unless-stopped
+    networks:
+      - laravel-prod
+
+#Docker Networks
+networks:
+  laravel-prod:
+    driver: bridge
