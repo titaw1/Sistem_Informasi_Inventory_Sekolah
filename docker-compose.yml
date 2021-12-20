@@ -1,36 +1,35 @@
 version: '3'
 services:
   app:
-    image: budasuyasa/laravel-prod-demo-app:prod
+    image: tita26/sistem_informasi_inventory_sekolah:latest
     container_name: app
     restart: unless-stopped
     tty: true
-    env_file: .env
     depends_on:
       - cache
     networks:
-      - laravel-prod
+      - app-network
 
   web_server:
-    image: budasuyasa/laravel-prod-demo-web_server:prod
+    image: tita26/sistem_informasi_inventory_sekolah-web_server:latest
     container_name: web_server
     restart: unless-stopped
     tty: true
     ports:
-      - "8002:80"
+      - "8010:80"
     depends_on:
       - app
     networks:
-      - laravel-prod
+      - app-network
 
   cache:
     image: redis:alpine
     container_name: cache
     restart: unless-stopped
     networks:
-      - laravel-prod
+      - app-network
 
 #Docker Networks
 networks:
-  laravel-prod:
+  app-network:
     driver: bridge
